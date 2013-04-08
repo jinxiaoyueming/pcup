@@ -5,13 +5,13 @@
     <movie outputType="Application" />
     <movie input="" />
     <movie path="bin\pcup.swf" />
-    <movie fps="30" />
+    <movie fps="25" />
     <movie width="800" />
     <movie height="600" />
     <movie version="3" />
     <movie minorVersion="6" />
     <movie platform="AIR" />
-    <movie background="#FFFFFF" />
+    <movie background="#C0C0C0" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>

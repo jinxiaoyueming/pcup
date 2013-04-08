@@ -8,15 +8,15 @@ package com.pcup
 	public class About 
 	{
 		/** Author. */
-		static public const author:String = "ph";
+		static public const author :String = "kissyid";
 		/** Author E-mail. */
-		static public const email:String = "kissyid@qq.com";
-		
+		static public const email  :String = "kissyid@qq.com";
 		/** Version */
-		static public const version:String = "？？？";
+		static public const version:String = "20130408113419";
+		
 		/** History */
 		static public const history:String = <![CDATA[
-???
+20130408113419
 * 删除了LoadPic类，添加了ImagesLoader和TextsLoader。
 * 删除了PHEvent和其它自定义的事件类，把事件的定义都放在相应的类中，不单独定义事件类。
 * 类名更改：PHArray / ArrayUtil，RotScaSpr / Twotouch。
