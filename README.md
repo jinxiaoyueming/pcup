@@ -1,4 +1,4 @@
 pcup
 ====
 
-An AS3 tool
+An AS3 Library.
