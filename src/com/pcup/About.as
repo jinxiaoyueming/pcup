@@ -12,10 +12,12 @@ package com.pcup
 		/** Author E-mail. */
 		static public const email  :String = "kissyid@qq.com";
 		/** Version */
-		static public const version:String = "20130408113419";
+		static public const version:String = "20130410115032";
 		
 		/** History */
 		static public const history:String = <![CDATA[
+20130410115032
+* 所有三方包迁移到pcup包
 20130408113419
 * 删除了LoadPic类，添加了ImagesLoader和TextsLoader。
 * 删除了PHEvent和其它自定义的事件类，把事件的定义都放在相应的类中，不单独定义事件类。

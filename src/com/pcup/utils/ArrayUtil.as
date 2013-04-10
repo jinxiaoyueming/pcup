@@ -1,6 +1,5 @@
 package com.pcup.utils 
 {
-	import com.z.Chinese;
 	
 	/**
 	 * ArrayUtil 类是一个与数组相关的函数类。

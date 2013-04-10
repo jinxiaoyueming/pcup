@@ -1,4 +1,4 @@
-package com.msc.display 
+package com.pcup.display 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -13,8 +13,7 @@ package com.msc.display
 	 * 
 	 * <p>
 	 * PH修改：
-	 * <li>1、包路径由“msc.display”改为了“com.msc.display”.</li>
-	 * <li>2、修复当设置 width、height 值小于1时会出错的bug。办法：在draw()中过滤掉小于1的情况.</li>
+	 * <li>1、修复当设置 width、height 值小于1时会出错的bug。办法：在draw()中过滤掉小于1的情况.</li>
 	 * </p>
 	 * 
 	 * @author itamt[at]qq.com

@@ -14,7 +14,7 @@
  *
  * Optimize & Profile any Flash content with TheMiner ( http://www.sociodox.com/theminer )
  */
-package com.sociodox.utils
+package com.pcup.utils
 {
 	import flash.utils.ByteArray;
 	
