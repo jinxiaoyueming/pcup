@@ -93,7 +93,7 @@ package com.pcup.utils
 		{
 			if (DBG_ABLE)
 			{
-				var content:String;
+				var content:String = "";
 				for each (var item:* in rest) 
 				{
 					content += String(item) + " ";
