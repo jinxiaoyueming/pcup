@@ -19,7 +19,7 @@ package com.pcup.project
 		/** 单击热区透明度	*/	static public var hotAreaAlpha:Number = 0;
 		
 		
-		/** 状态重置 */
+		/** 重置。回到初始状态 */
 		public function reset():void
 		{
 		}
