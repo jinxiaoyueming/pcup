@@ -205,6 +205,8 @@ trace(ArrayUtil.fixOffset(arr, 20).join());	// 50,30,70,90
 		 */
 		static public function formatObject(object:Object, UserObject:Class):Object
 		{
+			if (!object) return new Error("原始对象不能为空！");
+			
 			// [注意]因为只能遍历对象的动态属性，所以要先转换为JSON对象，再转为目标对象。（JSON对象的属性为动态属性）
 			var json:Object = JSON.parse(JSON.stringify(object));
 			

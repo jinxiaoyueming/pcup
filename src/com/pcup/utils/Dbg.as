@@ -33,11 +33,11 @@ package com.pcup.utils
 		
 		/**
 		 * 初始化。
-		 * @param	stg	舞台对象，调试信息是直接放在添加在舞台的显示列表中。
-		 * @param	dbgAble	是否显示调试信息。
+		 * @param	stage		舞台对象，调试信息是直接放在添加在舞台的显示列表中。
+		 * @param	dbgAble		是否显示调试信息。
 		 * @param	mouseAble	是否允许鼠标事件。
 		 */
-		static public function init(stg:Stage, dbgAble:Boolean, mouseAble:Boolean):void 
+		static public function init(stage:Stage, dbgAble:Boolean = true, mouseAble:Boolean = false):void 
 		{
 			DBG_ABLE = dbgAble;
 			
@@ -45,16 +45,16 @@ package com.pcup.utils
 			{
 				txt = new TextField();
 				txt.mouseEnabled = mouseAble;
-				txt.width = stg.stageWidth;
-				txt.height = stg.stageHeight;
+				txt.width = stage.stageWidth;
+				txt.height = stage.stageHeight;
 				txt.alpha = 0.7;
 				txt.background = true;
 				txt.backgroundColor = 0xffffff;
 				txt.wordWrap = true;
 				txt.text = "---------------- 调 试 信 息 ----------------\n";
 				
-				stg.addChild(txt);
-				stg.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+				stage.addChild(txt);
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			}
 		}
 		
