@@ -4,7 +4,12 @@ package com.pcup.project
 	import com.greensock.TweenLite;
 	import flash.display.Sprite;
 	import flash.display.Stage;
+	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
+	
+	
+	/** 需要提示时调度此事件 */
+	[Event(name = "show", type = "com.pcup.project.TipEvent")]
 	
 	/**
 	 * 视图面板父类
@@ -19,11 +24,27 @@ package com.pcup.project
 		/** 单击热区透明度	*/	static public var hotAreaAlpha:Number = 0;
 		
 		
+		/**
+		 * 监听一组对象的 TipEvent 事件，并由 this 把此事件转抛出去。
+		 * @param	list	需要转抛 TipEvent 事件的对象列表。
+		 */
+		protected function listTipEventDispatcher(list:Vector.<EventDispatcher>):void
+		{
+			for each (var item:EventDispatcher in list) 
+			{
+				item.addEventListener(TipEvent.SHOW, handleTipEvent);
+			}
+		}
+		private function handleTipEvent(e:TipEvent):void {
+			dispatchEvent(e);
+		}
+		
+		
+		
 		/** 重置。回到初始状态 */
 		public function reset():void
 		{
 		}
-		
 		/** 移入 */
 		public function moveIn():void
 		{
@@ -40,6 +61,7 @@ package com.pcup.project
 		protected function moveOutCompleteHandler():void {
 			this.visible = false;
 		}
+		
 		
 		
 		/**
@@ -62,12 +84,12 @@ package com.pcup.project
 			s.x = x;
 			s.y = y;
 			addChild(s);
-			s.addEventListener(MouseEvent.CLICK, clickHotAreaHanler);
+			s.addEventListener(MouseEvent.CLICK, handleHotArea);
 			
 			return s;
 		}
 		/** 热区的单击事件处理 */
-		protected function clickHotAreaHanler(e:MouseEvent):void 
+		protected function handleHotArea(e:MouseEvent):void 
 		{
 		}
 		
