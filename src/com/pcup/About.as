@@ -12,10 +12,16 @@ package com.pcup
 		/** Author E-mail. */
 		static public const email  :String = "kissyid@qq.com";
 		/** Version */
-		static public const version:String = "20130410115032";
+		static public const version:String = "???";
 		
 		/** History */
 		static public const history:String = <![CDATA[
+???
+* 增加DataEvent类。
+* DragSelect的downTip改为添加到stage，以显示到最上层。
+* DragSpr改为DragSlip，并做了大量调整。
+* 修复ScrollBar中的bug，并画成了圆角。
+* 增加了Util类。用来存放不好归类的方法。
 20130410115032
 * 所有三方包迁移到pcup包
 20130408113419

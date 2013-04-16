@@ -56,7 +56,7 @@ d.addEventListener(Event.SELECT, function (e:Event):void
 		private var area:Rectangle;		// 一个选择项的尺寸
 		private var dragCtn:Sprite;		// 所有选择项的容器
 		private var isX:Boolean;		// 拖动方向，true为水平方向，false为垂直方向。
-		private var downTip:Bitmap;		// 覆盖物
+		private var downTip:Bitmap;		// 按下时才显示的拖提示物（显示时是被添加到 stage 中，以显示在最上层）
 		
 		private var Pstg:Point;			// MOUSE_DOWN事件时，鼠标的舞台坐标。
 		private var Pctn:Point;			// MOUSE_DOWN事件时，鼠标的本对象坐标。
@@ -69,7 +69,7 @@ d.addEventListener(Event.SELECT, function (e:Event):void
 		 * @param	isX				拖动的方向（ture表示水平方向，false表示垂直方向）。
 		 * @param	textFormat		显示文本的格式。
 		 * @param	cover			覆盖物，好让本对象看来有想拖动它的欲望。
-		 * @param	downTip			提示物，按下的时候显示，提示用户可拖动。
+		 * @param	downTip			按下时才显示的拖提示物，提示用户可拖动。
 		 * @param	showBackground	是否显示背景底（便于调试显示区域）。
 		 */
 		public function DragSelect(argArr:Array, area:Rectangle, isX:Boolean, textFormat:TextFormat = null, cover:Bitmap = null, downTip:Bitmap = null, showBackground:Boolean = false) 
@@ -94,14 +94,6 @@ d.addEventListener(Event.SELECT, function (e:Event):void
 				cover.width = area.width;
 				cover.height = area.height;
 				addChild(cover);
-			}
-			// 提示物
-			if (downTip) 
-			{
-				downTip.visible = false;
-				downTip.x = (area.width - downTip.width) / 2;
-				downTip.y = (area.height - downTip.height) / 2;
-				addChild(downTip);
 			}
 			
 			// 遮罩
@@ -143,7 +135,14 @@ d.addEventListener(Event.SELECT, function (e:Event):void
 			// 清除旧缓动
 			TweenLite.killTweensOf(dragCtn);
 			
-			if (downTip) downTip.visible = true;
+			// 按下时才显示的拖提示物
+			if (downTip) 
+			{
+				var p:Point = localToGlobal(new Point((area.width - downTip.width) / 2, (area.height - downTip.height) / 2));
+				downTip.x = p.x;
+				downTip.y = p.y;
+				stage.addChild(downTip);
+			}
 		}
 		// MOUSE_MOVE
 		private function onMove(e:MouseEvent):void 
@@ -159,7 +158,11 @@ d.addEventListener(Event.SELECT, function (e:Event):void
 			stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
 			stage.removeEventListener(MouseEvent.ROLL_OUT, onUp);
 			
-			if (downTip) downTip.visible = false;
+			// 按下时才显示的拖提示物
+			if (downTip) 
+			{
+				stage.removeChild(downTip);
+			}
 			
 			// 输入框的中线位置和哪个值最近就对齐到那个值
 			var curP:int = isX ? dragCtn.x : dragCtn.y;												// 当前的 dragCtn.x（或y）

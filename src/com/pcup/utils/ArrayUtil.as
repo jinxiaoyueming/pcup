@@ -196,38 +196,6 @@ trace(ArrayUtil.fixOffset(arr, 20).join());	// 50,30,70,90
 			return arr0;
 		}
 		
-		
-		/**
-		 * 将任意对象转换为指定对象（当然，要属性一致才能得到正确的结果），如果转换出错则返回Error对象。
-		 * @param	object		原始对象
-		 * @param	UserObject	目标对象
-		 * @return				返回目标对象（as一下再用），如果转换出错则返回Error对象。
-		 */
-		static public function formatObject(object:Object, UserObject:Class):Object
-		{
-			if (!object) return new Error("原始对象不能为空！");
-			
-			// [注意]因为只能遍历对象的动态属性，所以要先转换为JSON对象，再转为目标对象。（JSON对象的属性为动态属性）
-			var json:Object = JSON.parse(JSON.stringify(object));
-			
-			// 目标对象
-			var userObject:Object = new UserObject();
-			
-			try
-			{
-				for (var name:String in json) 
-				{
-					userObject[name] = json[name];
-				}
-			}
-			catch (e:Error)
-			{
-				return e;
-			}
-			
-			return userObject;
-		}
-		
 	}
 
 }

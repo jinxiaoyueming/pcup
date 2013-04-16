@@ -1,71 +1,108 @@
 package com.pcup.display 
 {
+	import com.pcup.utils.Util;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 	
 	/**
-	 * ScrollBar 类的实例是作为 DragSpr 对象的配置项而存在，这就是滚动条。
+	 * ScrollBar 类的实例是作为 DragSlip 对象的配置项而存在，这就是滚动条。
 	 * 
 	 * <p>缺省的滚动条素材是用代码画的灰色方块，可通过 setMaterail() 方法来更新素材。</p>
 	 * 
-	 * @see	com.pcup.display.drag.DragSpr
+	 * @see	com.pcup.display.drag.DragSlip
 	 * 
 	 * @author PH
 	 */
 	public class ScrollBar extends Sprite 
 	{
-		private var L:uint;																	// 滚动条长度
-		private var isX:Boolean;															// 滚动条的方向
-		private var _offset:int;															// 滚动条对象在 DragSpr 对象中与停靠边缘的距离偏移值（正值表示向内偏移，负值表示向外偏移）。
+		private var isX:Boolean;			// 滚动条的方向
+		private var _length:uint;			// 滚动条长度
+		private var _offset:int;			// 滚动条对象在 DragSlip 对象中与停靠边缘的距离偏移值（正值表示向内偏移，负值表示向外偏移）。
 		
-		private var bgA:DisplayObject;														// 滚动条的背景 - 上
-		private var bgB:DisplayObject;														// 滚动条的背景 - 中
-		private var bgC:DisplayObject;														// 滚动条的背景 - 上
-		private var barA:DisplayObject;														// 滑块 - 上
-		private var barB:DisplayObject;														// 滑块 - 中
-		private var barC:DisplayObject;														// 滑块 - 上
+		private var bgA:DisplayObject;		// 滚动条的背景 - 上
+		private var bgB:DisplayObject;		// 滚动条的背景 - 中
+		private var bgC:DisplayObject;		// 滚动条的背景 - 上
+		private var barA:DisplayObject;		// 滑块 - 上
+		private var barB:DisplayObject;		// 滑块 - 中
+		private var barC:DisplayObject;		// 滑块 - 上
 		
 		
 		/**
 		 * 创建一个新的 ScrollBar 实例。
-		 * @param	L	长度。
-		 * @param	isX	方向（ture表示水平方向，false表示垂直方向）。
-		 * @param	w	宽度。
-		 * @param	_offset	在 DragSpr 对象中与停靠边缘的距离偏移值（正值表示向内偏移，负值表示向外偏移）。
+		 * @param	isX		滚动方向（ture表示水平方向，false表示垂直方向）。
+		 * @param	length	滚动条长度。
+		 * @param	width	默认素材的滚动条宽度。
+		 * @param	offset	在 DragSlip 对象中与停靠边缘的距离偏移值（正值表示向内偏移，负值表示向外偏移）。
 		 */
-		public function ScrollBar(L:uint, isX:Boolean, w:uint = 5, _offset:int = 3) 
+		public function ScrollBar(isX:Boolean, length:Number, width:Number = 6, offset:Number = 3) 
 		{
-			this.L = L;
 			this.isX = isX;
-			this._offset = _offset;
+			this._length = length;
+			this._offset = offset;
 			
-			
-			// 画缺省的素材
-			var mBgA :Shape = drawShape(isX ? w / 2 : w, isX ? w : w / 2, 0.2);
-			var mBgB :Shape = drawShape(isX ? 1 	: w, isX ? w : 1	, 0.2);
-			var mBgC :Shape = drawShape(isX ? w / 2 : w, isX ? w : w / 2, 0.2);
-			var mBarA:Shape = drawShape(isX ? w / 2 : w, isX ? w : w / 2, 1);
-			var mBarB:Shape = drawShape(isX ? 1 	: w, isX ? w : 1	, 1);
-			var mBarC:Shape = drawShape(isX ? w / 2 : w, isX ? w : w / 2, 1);
-			setMaterail(mBgA, mBgB, mBgC, mBarA, mBarB, mBarC);
+			// 默认素材
+			setDefaultMaterail(width);
 			
 			// 本模块不需要鼠标事件
-			mouseEnabled = false;
+			mouseEnabled  = 
 			mouseChildren = false;
 		}
-		private function drawShape(w:Number, h:Number, a:Number):Shape {
-			var s:Shape = new Shape();
-			s.graphics.beginFill(0, a);
-			s.graphics.drawRect(0, 0, w, h);
-			s.graphics.endFill();
+		
+		/**
+		 * 设置默认素材
+		 * @param	w	滚动条宽度。
+		 */
+		private function setDefaultMaterail(w:Number):void
+		{
+			// 半径
+			var r:Number = w / 2;
 			
-			return s;
+			// (底)画一个圆，用来切半圆用的
+			var cBg:Sprite = new Sprite();
+			cBg.graphics.beginFill(0, 0);
+			cBg.graphics.drawCircle(r, r, r);
+			cBg.graphics.endFill();
+			// (滑块)画一个圆，用来切半圆用的
+			var cBar:Sprite = new Sprite();
+			cBar.graphics.beginFill(0, 0.4);
+			cBar.graphics.drawCircle(r, r, r);
+			cBar.graphics.endFill();
+			// (底)画一个矩形，用来做中间可拉伸部分的素材
+			var rBg:Shape = new Shape();
+			rBg.graphics.beginFill(0, 0);
+			if (isX) rBg.graphics.drawRect(0, 0, 1, w);
+			else	 rBg.graphics.drawRect(0, 0, w, 1);
+			rBg.graphics.endFill();
+			// (滑块)画一个矩形，用来做中间可拉伸部分的素材
+			var rBar:Shape = new Shape();
+			rBar.graphics.beginFill(0, 0.4);
+			if (isX) rBar.graphics.drawRect(0, 0, 1, w);
+			else	 rBar.graphics.drawRect(0, 0, w, 1);
+			rBar.graphics.endFill();
+			
+			if (isX)
+			{
+				var mBgA :Bitmap = Util.draw(cBg , new Rectangle(0, 0, r, w));
+				var mBgC :Bitmap = Util.draw(cBg , new Rectangle(r, 0, r, w));
+				var mBarA:Bitmap = Util.draw(cBar, new Rectangle(0, 0, r, w));
+				var mBarC:Bitmap = Util.draw(cBar, new Rectangle(r, 0, r, w));
+			}
+			else
+			{
+				mBgA  = Util.draw(cBg , new Rectangle(0, 0, w, r));
+				mBgC  = Util.draw(cBg , new Rectangle(0, r, w, r));
+				mBarA = Util.draw(cBar, new Rectangle(0, 0, w, r));
+				mBarC = Util.draw(cBar, new Rectangle(0, r, w, r));
+			}
+			var mBgB :Shape  = rBg;
+			var mBarB:Shape  = rBar;
+			
+			setMaterail(mBgA, mBgB, mBgC, mBarA, mBarB, mBarC);
 		}
-		
-		
 		/**
 		 * 设置素材（为 null 值的参数对应的素材不会被替换）。
 		 * @param	mBgA	底 - 上。
@@ -89,13 +126,13 @@ package com.pcup.display
 			{
 				if (isX)
 				{
-					pa = (barA.width + barB.width + barC.width) / L;
-					pb = barA.x / L;
+					pa = (barA.width + barB.width + barC.width) / _length;
+					pb = barA.x / _length;
 				}
 				else
 				{
-					pa = (barA.height + barB.height + barC.height) / L;
-					pb = barA.y / L;
+					pa = (barA.height + barB.height + barC.height) / _length;
+					pb = barA.y / _length;
 				}
 			}
 			
@@ -126,13 +163,13 @@ package com.pcup.display
 			// 新背景素材定位
 			if (isX)
 			{
-				bgB.width = L - bgA.width - bgC.width;
+				bgB.width = _length - bgA.width - bgC.width;
 				bgB.x = bgA.width;
 				bgC.x = bgB.width + bgB.x;
 			}
 			else
 			{
-				bgB.height = L - bgA.height - bgC.height;
+				bgB.height = _length - bgA.height - bgC.height;
 				bgB.y = bgA.height;
 				bgC.y = bgB.height + bgB.y;
 			}
@@ -153,51 +190,37 @@ package com.pcup.display
 		{
 			if (isX)
 			{
-				barB.width = uint(L * pA) - barA.width - barC.width;	// 要用 uint() 取整，不然素材定位时会因为浮点数而出现对不齐的现象。
+				// 最小取0，不然出现负值时滚动条长度会出现异常；
+				// 用 uint() 取整，不然素材定位时会因为浮点数而出现对不齐的现象。
+				barB.width = Math.max(0, uint(_length * pA) - barA.width - barC.width);	
 				
-				barA.x = uint(L * pB);
+				barA.x = uint(_length * pB);
 				barB.x = barA.x + barA.width;
 				barC.x = barB.x + barB.width;
 			}
 			else
 			{
-				barB.height = uint(L * pA) - barA.height - barC.height;
+				barB.height = Math.max(0, uint(_length * pA) - barA.height - barC.height);
 				
-				barA.y = uint(L * pB);
+				barA.y = uint(_length * pB);
 				barB.y = barA.y + barA.height;
 				barC.y = barB.y + barB.height;
 			}
 		}
 		
 		
-		// 画出一个显示对象的副本。
-		private function draw(obj:DisplayObject):Bitmap 
-		{
-			var bmd:BitmapData = new BitmapData(obj.width, obj.height, true, 0);
-			bmd.draw(obj);
-			
-			return new Bitmap(bmd);
-		}
-		
-		
 		
 		
 		/**
-		 * 滚动条对象在 DragSpr 对象中与停靠边缘的距离偏移值（正值表示向内偏移，负值表示向外偏移）。
-		 * <p />
-		 * 说明：给 DragSpr 对象使用的。DragSpr 对象获取这个参数用以为滚动条对象定位。
+		 * 滚动条对象在 DragSlip 对象中与停靠边缘的距离偏移值（正值表示向内偏移，负值表示向外偏移）。
+		 * <p>说明：给 DragSlip 对象使用的。DragSlip 对象获取这个参数用以为滚动条对象定位。</p>
 		 */
-		public function get offset():int 
-		{
+		public function get offset():int {
 			return _offset;
 		}
-		
-		/**
-		 * 滚动条长度。
-		 */
-		public function get long():uint 
-		{
-			return L;
+		/** 滚动条长度。 */
+		public function get length():uint {
+			return _length;
 		}
 		
 		

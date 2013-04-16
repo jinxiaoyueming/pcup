@@ -19,8 +19,8 @@ package com.pcup.project
 	public class Panel extends Sprite 
 	{
 		/** 舞台			*/	static public var stg:Stage;
-		/** 应用视窗宽		*/	static public var viewWidth:uint;
-		/** 应用视窗高		*/	static public var viewHeight:uint;
+		/** 应用视窗宽		*/	static public var appWidth:uint;
+		/** 应用视窗高		*/	static public var appHeight:uint;
 		/** 单击热区透明度	*/	static public var hotAreaAlpha:Number = 0;
 		
 		
@@ -48,14 +48,14 @@ package com.pcup.project
 		/** 移入 */
 		public function moveIn():void
 		{
-			this.x = viewWidth;
+			this.x = appWidth;
 			this.visible = true;
 			TweenLite.to(this, 0.3, { x:0, ease:Linear.easeNone } );
 		}
 		/** 移出 */
 		public function moveOut():void
 		{
-			TweenLite.to(this, 0.3, { x:-viewWidth, onComplete:moveOutCompleteHandler, ease:Linear.easeNone } );
+			TweenLite.to(this, 0.3, { x:-appWidth, onComplete:moveOutCompleteHandler, ease:Linear.easeNone } );
 		}
 		/** 移出完成后的操作 */
 		protected function moveOutCompleteHandler():void {
