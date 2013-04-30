@@ -1,5 +1,6 @@
 package com.pcup.utils 
 {
+	import com.adobe.serialization.json.JSON;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.IBitmapDrawable;
@@ -25,7 +26,7 @@ package com.pcup.utils
 			if (!object) return new Error("原始对象为空！");
 			
 			// [注意]因为只能遍历对象的动态属性，所以要先转换为JSON对象，再转为目标对象。（JSON对象的属性为动态属性）
-			var json:Object = JSON.parse(JSON.stringify(object));
+			var json:Object = com.adobe.serialization.json.JSON.decode(com.adobe.serialization.json.JSON.encode(object));
 			
 			// 目标对象
 			var userObject:Object = new UserObject();
@@ -59,7 +60,7 @@ package com.pcup.utils
 			if (!objectA || !objectB) return new Error("参数为空！");
 			
 			// [注意]因为只能遍历对象的动态属性，所以要先转换为JSON对象，再转为目标对象。（JSON对象的属性为动态属性）
-			var json:Object = JSON.parse(JSON.stringify(objectB));
+			var json:Object = com.adobe.serialization.json.JSON.decode(com.adobe.serialization.json.JSON.encode(objectB));
 			
 			try
 			{

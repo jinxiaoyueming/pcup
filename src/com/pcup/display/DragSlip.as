@@ -363,10 +363,14 @@ addChild(d);
 			updateViewRect();
 			return obj;
 		}
-		override public function removeChildren(beginIndex:int = 0, endIndex:int = 2147483647):void {
+		/**
+		 * @playerversion	AIR 3.0
+		 * @playerversion	Flash 11
+		 * */
+		/*override public function removeChildren(beginIndex:int = 0, endIndex:int = 2147483647):void {
 			subContainer.removeChildren(beginIndex, endIndex);
 			updateViewRect();
-		}
+		}*/
 		
 		
 		

@@ -17,8 +17,8 @@ package com.pcup
 		/** History */
 		static public const history:String = <![CDATA[
 ???
+* DragSelect调整.增加底图,效果优化.
 * 增加DataEvent类。
-* DragSelect的downTip改为添加到stage，以显示到最上层。
 * DragSpr改为DragSlip，并做了大量调整。
 * 修复ScrollBar中的bug，并画成了圆角。
 * 增加了Util类。用来存放不好归类的方法。

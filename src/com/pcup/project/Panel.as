@@ -6,6 +6,7 @@ package com.pcup.project
 	import flash.display.Stage;
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	
 	
 	/** 需要提示时调度此事件 */
@@ -19,8 +20,7 @@ package com.pcup.project
 	public class Panel extends Sprite 
 	{
 		/** 舞台			*/	static public var stg:Stage;
-		/** 应用视窗宽		*/	static public var appWidth:uint;
-		/** 应用视窗高		*/	static public var appHeight:uint;
+		/** 应用视窗尺寸	*/	static public var appView:Rectangle;
 		/** 单击热区透明度	*/	static public var hotAreaAlpha:Number = 0;
 		
 		
@@ -48,14 +48,14 @@ package com.pcup.project
 		/** 移入 */
 		public function moveIn():void
 		{
-			this.x = appWidth;
+			this.x = appView.width;
 			this.visible = true;
 			TweenLite.to(this, 0.3, { x:0, ease:Linear.easeNone } );
 		}
 		/** 移出 */
 		public function moveOut():void
 		{
-			TweenLite.to(this, 0.3, { x:-appWidth, onComplete:moveOutCompleteHandler, ease:Linear.easeNone } );
+			TweenLite.to(this, 0.3, { x:-appView.width, onComplete:moveOutCompleteHandler, ease:Linear.easeNone } );
 		}
 		/** 移出完成后的操作 */
 		protected function moveOutCompleteHandler():void {
