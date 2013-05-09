@@ -12,11 +12,11 @@ package com.pcup
 		/** Author E-mail. */
 		static public const email  :String = "kissyid@qq.com";
 		/** Version */
-		static public const version:String = "???";
+		static public const version:String = "20130509102104";
 		
 		/** History */
 		static public const history:String = <![CDATA[
-???
+20130509102104
 * DragSelect调整.增加底图,效果优化.
 * 增加DataEvent类。
 * DragSpr改为DragSlip，并做了大量调整。
