@@ -2,11 +2,11 @@ package com.pcup.utils
 {
 	
 	/**
-	 * ArrayUtil 类是一个与数组相关的函数类。
+	 * ArrUtil 类是一个与数组相关的函数类。
 	 * 
 	 * @author PH
 	 */
-	public class ArrayUtil 
+	public class ArrUtil 
 	{
 		
 		/**
@@ -195,6 +195,27 @@ trace(ArrayUtil.fixOffset(arr, 20).join());	// 50,30,70,90
 			// 返回修正后的数据
 			return arr0;
 		}
+		
+		
+		/**
+		 * 用一个对象与一个数组中的元素进行匹配. 返回第一个匹配元素的索引, 若无匹配元素则返回 -1.
+		 * @param	obj		对象
+		 * @param	array	数组
+		 * @return			第一个匹配元素的索引, 若无匹配元素则返回 -1.
+		 */
+		static public function match(obj:*, array:Array):int
+		{
+			for (var i:* in array) 
+			{
+				if (obj == array[i])
+				{
+					return i;
+				}
+			}
+			
+			return -1;
+		}
+		
 		
 	}
 

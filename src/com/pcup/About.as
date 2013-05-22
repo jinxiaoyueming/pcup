@@ -12,10 +12,15 @@ package com.pcup
 		/** Author E-mail. */
 		static public const email  :String = "kissyid@qq.com";
 		/** Version */
-		static public const version:String = "20130509102104";
+		static public const version:String = "20130523001921";
 		
 		/** History */
 		static public const history:String = <![CDATA[
+20130523001921
+* ArrayUtil改名为ArrUtil，防止与AS3自带类重名。
+* ArrUtil增加match方法。
+* 增加MathUtil类.
+* 增加Slip类。删除DragSlip类, 删除ScrollBar类。
 20130509102104
 * DragSelect调整.增加底图,效果优化.
 * 增加DataEvent类。

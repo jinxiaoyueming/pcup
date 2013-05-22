@@ -1,8 +1,9 @@
 package com.pcup.utils 
 {
-	import com.pcup.display.DragSlip;
-	import com.pcup.display.ScrollBar;
+	import com.pcup.display.Slip;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.geom.Rectangle;
 	import flash.text.Font;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -20,7 +21,7 @@ package com.pcup.utils
 		 * @param	chineseTest				测试内容中是否加入中文(因为有的字体加了中文就显示不正常，不知何故)
 		 * @return
 		 */
-		static public function enumerateFonts(enumerateDeviceFonts:Boolean = false, chineseTest:Boolean = true):DragSlip
+		static public function enumerateFonts(enumerateDeviceFonts:Boolean = false, chineseTest:Boolean = true):Slip
 		{
 			// 容器
 			var c:Sprite = new Sprite();
@@ -56,9 +57,7 @@ package com.pcup.utils
 			c.graphics.endFill();
 			
 			// 拖动对象
-			var d:DragSlip = new DragSlip(false, 600);
-			d.scrollBar = new ScrollBar(false, 600);
-			d.wheelEnabled = true;
+			var d:Slip = new Slip(Slip.DIRECTION_VERTICAL, new Rectangle(0, 0, c.width, 600));
 			d.addChild(c);
 			return d;
 		}
