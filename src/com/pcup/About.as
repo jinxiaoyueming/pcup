@@ -12,12 +12,16 @@ package com.pcup
 		/** Author E-mail. */
 		static public const email  :String = "kissyid@qq.com";
 		/** Version */
-		static public const version:String = "20130523102701";
+		static public const version:String = "20130523115442";
 		
 		/** History */
 		static public const history:String = <![CDATA[
+20130523115442
+	* 修复：Slip内容过度溢出时滚动条长度小于其宽度的问题（再次修复）。
+	* 修复：滚动条长度小于其宽度时, 当滚动条滚动至右端时会跑出视窗。
+	* 设置滚动条宽度时强制取偶数。
 20130523102701
-	* 修复Slip内容过度溢出时滚动条长度小于其宽度的问题[没球是不行滴]。
+	* 修复：Slip内容过度溢出时滚动条长度小于其宽度的问题。
 20130523001921
 	* ArrayUtil改名为ArrUtil，防止与AS3自带类重名。
 	* ArrUtil增加match方法。

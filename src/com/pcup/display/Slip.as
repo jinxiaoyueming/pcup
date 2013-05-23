@@ -14,13 +14,13 @@ package com.pcup.display
 	import flash.utils.setTimeout;
 	
 	/**
-	 * 仿Apple滑动.
+	 * 仿Apple滑动。
 	 * 
-	 * <p>使用说明:</p>
-	 * <p>1. 内容中的对象可直接用 MouseEvent.CLICK 事件来获取单击事件, 因为在拖动时会禁用内容的鼠标事件, 就排除了拖动也会触发单击的情况.</p>
-	 * <p>2. this 的所有 child 操作均被重写为内容的 child 操作.</p>
-	 * <p>3. 溢出: 指某对象出现在非正常停靠位置. 停靠位置: 指某对象静止下来时所在的位置.</p>
-	 * <p>4. 偷窃了前人成果(http://zwwdm.com/?post=84), 取其主要思想. 表示感谢!</p>
+	 * <p>使用说明：</p>
+	 * <p>1. 内容中的对象可直接用 MouseEvent.CLICK 事件来获取单击事件, 因为在拖动时会禁用内容的鼠标事件, 就排除了拖动也会触发单击的情况。</p>
+	 * <p>2. this 的所有 child 操作均被重写为内容的 child 操作。</p>
+	 * <p>3. 溢出: 指某对象出现在非正常停靠位置；停靠位置: 指某对象静止下来时所在的位置。</p>
+	 * <p>4. 偷窃了前人成果(http://zwwdm.com/?post=84)，取其主要思想. 表示感谢！</p>
 	 * 
 	 * 下面是一个简单的使用示例。
 <listing version="3.0">
@@ -69,14 +69,16 @@ private function onClick(e:MouseEvent):void
 	 */
 	public class Slip extends Sprite 
 	{
-		/** 水平方向 */		static public const DIRECTION_HORIZONTAL:uint = 1;
-		/** 垂直方向 */		static public const DIRECTION_VERTICAL	:uint = 2;
-		/** 任意方向 */		static public const DIRECTION_AUTO		:uint = 3;
+		/** 水平方向。 */		static public const DIRECTION_HORIZONTAL:uint = 1;
+		/** 垂直方向。 */		static public const DIRECTION_VERTICAL	:uint = 2;
+		/** 任意方向。 */		static public const DIRECTION_AUTO		:uint = 3;
 		
 		/** 是否使用滚动条 */
 		private var _barEnable:Boolean = true;
 		/** 滚动条宽度 */
 		private var _barWidth:uint = 6;
+		/** 滚动条的最大停靠位置(为提高效率, 故存储于些, 以免每次都运算) */
+		private var _barMaxPosition:Point;
 		/** 滚动条心隐藏延迟的ID */
 		private var _barIntervalId:uint;
 		
@@ -109,9 +111,14 @@ private function onClick(e:MouseEvent):void
 		
 		
 		/**
+		 * 创建一个新的 Slip 实例。
 		 * 
-		 * @param	direction	滑动方向. 有效值[1, 2, 3]
-		 * @param	viewRect	视窗尺寸
+		 * @param	direction	滑动方向。有效值[1, 2, 3]。
+		 * @param	viewRect	视窗尺寸。
+		 * 
+		 * @see com.pcup.display.Slip#DIRECTION_HORIZONTAL
+		 * @see com.pcup.display.Slip#DIRECTION_VERTICAL
+		 * @see com.pcup.display.Slip#DIRECTION_AUTO
 		 */
 		public function Slip(direction:uint, viewRect:Rectangle) 
 		{
@@ -125,6 +132,7 @@ private function onClick(e:MouseEvent):void
 			_c1 = new Point();
 			_speed = new Point();
 			_scrollRect = new Rectangle();
+			_barMaxPosition = new Point();
 			
 			// 遮罩
 			mask = new Bitmap(new BitmapData(_viewRect.width, _viewRect.height));
@@ -139,7 +147,8 @@ private function onClick(e:MouseEvent):void
 			
 			// 设置状态
 			this.direction = _direction;	// 方向
-			this.barEnable = _barEnable;	// 滚动条
+			this.barEnable = _barEnable;	// 是否使用滚动条
+			this.barWidth  = _barWidth;		// 滚动条宽度
 			
 			// 开始拖动
 			addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
@@ -416,22 +425,23 @@ private function onClick(e:MouseEvent):void
 					// 左端溢出
 					if (_c1.x > 0)
 					{
-						L = _viewRect.width * _viewRect.width / (_content.x + _content.width);
-						if (L < _barWidth) L = _barWidth;
+						L = _viewRect.width * _viewRect.width / (_content.x + _content.width);		if (L < _barWidth) L = _barWidth;
 						P = 0;
 					}
 					// 右端溢出
 					else if (_c1.x < _scrollRect.x)
 					{
-						L = _viewRect.width * _viewRect.width / ( -_content.x + _viewRect.width);
-						if (L < _barWidth) L = _barWidth;
+						L = _viewRect.width * _viewRect.width / ( -_content.x + _viewRect.width);	if (L < _barWidth) L = _barWidth;
 						P = _viewRect.width - L;
 					}
 					// 无溢出, 即常规情况
 					else
 					{
-						L = _viewRect.width * _viewRect.width / _content.width;
+						L = _viewRect.width * _viewRect.width / _content.width;						if (L < _barWidth) L = _barWidth;
 						P = _viewRect.width * -_content.x	  / _content.width;
+						
+						// 防止: 滚动条长度小于其宽度时, 当滚动条滚动至右端时会跑出视窗
+						if (P > _barMaxPosition.x) P = _barMaxPosition.x;
 					}
 					
 					// 绘制新图
@@ -451,18 +461,20 @@ private function onClick(e:MouseEvent):void
 				{
 					if (_c1.y > 0)
 					{
-						L = _viewRect.height * _viewRect.height / (_content.y + _content.height);
+						L = _viewRect.height * _viewRect.height / (_content.y + _content.height);		if (L < _barWidth) L = _barWidth;
 						P = 0;
 					}
 					else if (_c1.y < _scrollRect.y)
 					{
-						L = _viewRect.height * _viewRect.height / ( -_content.y + _viewRect.height);
+						L = _viewRect.height * _viewRect.height / ( -_content.y + _viewRect.height);	if (L < _barWidth) L = _barWidth;
 						P = _viewRect.height - L;
 					}
 					else
 					{
-						L = _viewRect.height * _viewRect.height / _content.height;
+						L = _viewRect.height * _viewRect.height / _content.height;						if (L < _barWidth) L = _barWidth;
 						P = _viewRect.height * -_content.y		/ _content.height;
+						
+						if (P > _barMaxPosition.y) P = _barMaxPosition.y;
 					}
 					
 					_vBar.graphics.beginFill(0, 0.6);
@@ -580,7 +592,7 @@ private function onClick(e:MouseEvent):void
 		
 		
 		/**
-		 * 滑动方向.
+		 * 滑动方向。
 		 * @see com.pcup.display.Slip#DIRECTION_HORIZONTAL
 		 * @see com.pcup.display.Slip#DIRECTION_VERTICAL
 		 * @see com.pcup.display.Slip#DIRECTION_AUTO
@@ -601,7 +613,10 @@ private function onClick(e:MouseEvent):void
 			// 重置滚动条
 			resetBar();
 		}
-		/** 是否使用滚动条. */
+		/**
+		 * 是否使用滚动条。
+		 * @default true
+		 */
 		public function get barEnable():Boolean 
 		{
 			return _barEnable;
@@ -613,14 +628,22 @@ private function onClick(e:MouseEvent):void
 			// 重置滚动条
 			resetBar();
 		}
-		/** 滚动条宽度. */
+		/**
+		 * 滚动条宽度。
+		 * @default	6
+		 */
 		public function get barWidth():uint 
 		{
 			return _barWidth;
 		}
 		public function set barWidth(value:uint):void 
 		{
-			_barWidth = value;
+			// 做两次位操作是为了取大偶数, 因为宽度为奇数时画出的滚动条是虚的
+			_barWidth = value >> 1 << 1;
+			
+			// 更新滚动条最大停靠位置
+			_barMaxPosition.x = _viewRect.width  - _barWidth;
+			_barMaxPosition.y = _viewRect.height - _barWidth;
 		}
 		
 		
