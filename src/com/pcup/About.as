@@ -7,15 +7,20 @@ package com.pcup
 	 */
 	public class About 
 	{
-		/** Author. */
+		/** 作者。 */
 		static public const author :String = "kissyid";
-		/** Author E-mail. */
+		/** 作者邮箱。 */
 		static public const email  :String = "kissyid@qq.com";
-		/** Version */
-		static public const version:String = "20130523131341";
+		/** 版本号。 */
+		static public const version:String = "20130523160211";
 		
-		/** History */
+		/** 更新历史。 */
 		static public const history:String = <![CDATA[
+20130523160211
+	* 修改：Slip的滚动条默认宽度改为5象素。
+	* 去除：Slip滚动条宽度时强制取偶数（泥马取奇数也没见虚啊）。
+	* 优化：溢出时滚动条长度直接损失溢出量（仿苹果啊）。
+	* 修复：开始拖动前是否已经溢出，未分开处理。导致拖动时出现抖动。
 20130523131341
 	* Slip的滚动条透明度改为0.5。
 20130523115442

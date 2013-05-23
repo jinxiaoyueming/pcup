@@ -76,7 +76,7 @@ private function onClick(e:MouseEvent):void
 		/** 是否使用滚动条 */
 		private var _barEnable:Boolean = true;
 		/** 滚动条宽度 */
-		private var _barWidth:uint = 6;
+		private var _barWidth:uint = 5;
 		/** 滚动条的最大停靠位置(为提高效率, 故存储于些, 以免每次都运算) */
 		private var _barMaxPosition:Point;
 		/** 滚动条心隐藏延迟的ID */
@@ -218,14 +218,29 @@ private function onClick(e:MouseEvent):void
 				_c1.x = _c0.x + (_m1.x - _m0.x);
 				_c1.y = _c0.y + (_m1.y - _m0.y);
 				
-				// 溢出时拖动距离损失一半(内容可完全显示 || 左端溢出 || 右端溢出)
-				if (_scrollRect.x > 0 || _c1.x > 0 || _c1.x < _scrollRect.x)
+				/**
+				 * 溢出时拖动距离损失一半.
+				 * 溢出情况有三种: 内容可完全显示, 左端溢出, 右端溢出.
+				 */
+				if (_scrollRect.x > 0 || _c1.x > 0)
 				{
-					_c1.x -= (_c1.x - _c0.x) / 2;
+					if (_c0.x > 0 || _c0.x < _scrollRect.x)	_c1.x -= (_c1.x - _c0.x) / 2;		// 开始拖动前已溢出
+					else									_c1.x /= 2;							// 开始拖动前未溢出
 				}
-				if (_scrollRect.y > 0 || _c1.y > 0 || _c1.y < _scrollRect.y)
+				else if (_c1.x < _scrollRect.x)
 				{
-					_c1.y -= (_c1.y - _c0.y) / 2;
+					if (_c0.x > 0 || _c0.x < _scrollRect.x)	_c1.x -= (_c1.x - _c0.x) / 2;
+					else									_c1.x -= (_c1.x - _scrollRect.x) / 2;
+				}
+				if (_scrollRect.y > 0 || _c1.y > 0)
+				{
+					if (_c0.y > 0 || _c0.y < _scrollRect.y)	_c1.y -= (_c1.y - _c0.y) / 2;
+					else									_c1.y /= 2;
+				}
+				else if (_c1.y < _scrollRect.y)
+				{
+					if (_c0.y > 0 || _c0.y < _scrollRect.y)	_c1.y -= (_c1.y - _c0.y) / 2;
+					else									_c1.y -= (_c1.y - _scrollRect.y) / 2;
 				}
 				
 				// 更新
@@ -422,24 +437,28 @@ private function onClick(e:MouseEvent):void
 				// 内容超出显示范围
 				if (_content.width > _viewRect.width)
 				{
+					// 先按常规情况计算出长度, 若溢出后面将直接减去溢出量
+					L = _viewRect.width * _viewRect.width / _content.width;
+					
 					// 左端溢出
 					if (_c1.x > 0)
 					{
-						L = _viewRect.width * _viewRect.width / (_content.x + _content.width);		if (L < _barWidth) L = _barWidth;
+						L -= _c1.x;						if (L < _barWidth) L = _barWidth;
 						P = 0;
 					}
 					// 右端溢出
 					else if (_c1.x < _scrollRect.x)
 					{
-						L = _viewRect.width * _viewRect.width / ( -_content.x + _viewRect.width);	if (L < _barWidth) L = _barWidth;
+						L -= _scrollRect.x -_c1.x;		if (L < _barWidth) L = _barWidth;
 						P = _viewRect.width - L;
 					}
 					// 无溢出, 即常规情况
 					else
 					{
-						L = _viewRect.width * _viewRect.width / _content.width;						if (L < _barWidth) L = _barWidth;
-						P = _viewRect.width * -_content.x	  / _content.width;
+						// 检查长度是否小于宽度(长度小于宽度时滚动条很窄很难看, 相等时为一个球), 上面两种溢出情况也做了检查
+						if (L < _barWidth) L = _barWidth;
 						
+						P = _viewRect.width * -_content.x / _content.width;
 						// 防止: 滚动条长度小于其宽度时, 当滚动条滚动至右端时会跑出视窗
 						if (P > _barMaxPosition.x) P = _barMaxPosition.x;
 					}
@@ -459,21 +478,23 @@ private function onClick(e:MouseEvent):void
 				
 				if (_content.height > _viewRect.height)
 				{
+					L = _viewRect.height * _viewRect.height / _content.height;
+					
 					if (_c1.y > 0)
 					{
-						L = _viewRect.height * _viewRect.height / (_content.y + _content.height);		if (L < _barWidth) L = _barWidth;
+						L -= _c1.y;						if (L < _barWidth) L = _barWidth;
 						P = 0;
 					}
 					else if (_c1.y < _scrollRect.y)
 					{
-						L = _viewRect.height * _viewRect.height / ( -_content.y + _viewRect.height);	if (L < _barWidth) L = _barWidth;
+						L -= _scrollRect.y -_c1.y;		if (L < _barWidth) L = _barWidth;
 						P = _viewRect.height - L;
 					}
 					else
 					{
-						L = _viewRect.height * _viewRect.height / _content.height;						if (L < _barWidth) L = _barWidth;
-						P = _viewRect.height * -_content.y		/ _content.height;
+						if (L < _barWidth) L = _barWidth;
 						
+						P = _viewRect.height * -_content.y / _content.height;
 						if (P > _barMaxPosition.y) P = _barMaxPosition.y;
 					}
 					
@@ -630,7 +651,7 @@ private function onClick(e:MouseEvent):void
 		}
 		/**
 		 * 滚动条宽度。
-		 * @default	6
+		 * @default	5
 		 */
 		public function get barWidth():uint 
 		{
@@ -638,8 +659,7 @@ private function onClick(e:MouseEvent):void
 		}
 		public function set barWidth(value:uint):void 
 		{
-			// 做两次位操作是为了取大偶数, 因为宽度为奇数时画出的滚动条是虚的
-			_barWidth = value >> 1 << 1;
+			_barWidth = value;
 			
 			// 更新滚动条最大停靠位置
 			_barMaxPosition.x = _viewRect.width  - _barWidth;
