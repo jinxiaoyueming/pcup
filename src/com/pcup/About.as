@@ -12,10 +12,12 @@ package com.pcup
 		/** Author E-mail. */
 		static public const email  :String = "kissyid@qq.com";
 		/** Version */
-		static public const version:String = "20130523115442";
+		static public const version:String = "20130523131341";
 		
 		/** History */
 		static public const history:String = <![CDATA[
+20130523131341
+	* Slip的滚动条透明度改为0.5。
 20130523115442
 	* 修复：Slip内容过度溢出时滚动条长度小于其宽度的问题（再次修复）。
 	* 修复：滚动条长度小于其宽度时, 当滚动条滚动至右端时会跑出视窗。
