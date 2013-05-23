@@ -417,12 +417,14 @@ private function onClick(e:MouseEvent):void
 					if (_c1.x > 0)
 					{
 						L = _viewRect.width * _viewRect.width / (_content.x + _content.width);
+						if (L < _barWidth) L = _barWidth;
 						P = 0;
 					}
 					// 右端溢出
 					else if (_c1.x < _scrollRect.x)
 					{
 						L = _viewRect.width * _viewRect.width / ( -_content.x + _viewRect.width);
+						if (L < _barWidth) L = _barWidth;
 						P = _viewRect.width - L;
 					}
 					// 无溢出, 即常规情况
