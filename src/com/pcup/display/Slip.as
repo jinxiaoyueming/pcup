@@ -445,7 +445,7 @@ private function onClick(e:MouseEvent):void
 					}
 					
 					// 绘制新图
-					_hBar.graphics.beginFill(0, 0.6);
+					_hBar.graphics.beginFill(0, 0.5);
 					_hBar.graphics.drawRoundRect(0, 0, L, _barWidth, _barWidth, _barWidth);
 					_hBar.graphics.endFill();
 					
@@ -477,7 +477,7 @@ private function onClick(e:MouseEvent):void
 						if (P > _barMaxPosition.y) P = _barMaxPosition.y;
 					}
 					
-					_vBar.graphics.beginFill(0, 0.6);
+					_vBar.graphics.beginFill(0, 0.5);
 					_vBar.graphics.drawRoundRect(0, 0, _barWidth, L, _barWidth, _barWidth);
 					_vBar.graphics.endFill();
 					
