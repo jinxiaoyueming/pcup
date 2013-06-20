@@ -13,7 +13,7 @@ package
 	/**
 	 * 更新步骤：
 	 * 1、About
-	 * 2、"d:\Program Files\flex_sdk\bin\asdoc.exe" -doc-sources "e:\ph\GitHub\pcup\src" -main-title "pcup API Documentation" -output "e:\ph\GitHub\pcup\docs" -external-library-path "e:\ph\GitHub\pcup\lib\greensock.swc" "e:\ph\GitHub\pcup\lib\airglobal.swc" "e:\ph\GitHub\pcup\lib\as3corelib.swc"  -window-title "pcup API Documentation" -footer "kissyid@qq.com"
+	 * 2、"d:\Program Files\flex_sdk\bin\asdoc.exe" -doc-sources "d:\GitHub\pcup\src" -main-title "pcup API Documentation" -output "d:\GitHub\pcup\docs" -external-library-path "d:\GitHub\pcup\lib\greensock.swc" "d:\GitHub\pcup\lib\airglobal.swc" "d:\GitHub\pcup\lib\as3corelib.swc"  -window-title "pcup API Documentation" -footer "kissyid@qq.com"
 	 * 3、swc
 	 * 
 	 * @author PH

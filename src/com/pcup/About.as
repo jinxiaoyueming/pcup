@@ -12,10 +12,12 @@ package com.pcup
 		/** 作者邮箱。 */
 		static public const email  :String = "kissyid@qq.com";
 		/** 版本号。 */
-		static public const version:String = "20130523160211";
+		static public const version:String = "20130621011930";
 		
 		/** 更新历史。 */
 		static public const history:String = <![CDATA[
+20130621011930
+    * Dbg类：优化快捷键。
 20130523160211
 	* 修改：Slip的滚动条默认宽度改为5象素。
 	* 去除：Slip滚动条宽度时强制取偶数（泥马取奇数也没见虚啊）。

@@ -10,12 +10,12 @@ package com.pcup.utils
 	 * 
 	 * <p>
 	 * 在PC上可以有以下键盘控制：
-	 * <li>空格键：切换调试信息的visible属性。</li>
-	 * <li>V键：切换调试信息的mouseEnabled属性。</li>
-	 * <li>X键：清空调试信息。</li>
+	 * <li>Ctrl+V: 切换调试信息的visible属性。</li>
+	 * <li>Ctrl+M: 切换调试信息的mouseEnabled属性。</li>
+	 * <li>Ctrl+C: 清空调试信息。</li>
 	 * </p>
 	 * 
-	 * <p>在移动设备上没有键盘控制，就在初始化时禁用鼠标事件（相当于PC上V键的功能）。这样可以在显示调试信息的情况下操作程序。</p>
+	 * <p>在移动设备上没有键盘控制，就在初始化时禁用鼠标事件。这样可以在显示调试信息的情况下操作程序。</p>
 	 * 
 	 * @author PH
 	 */
@@ -61,27 +61,20 @@ package com.pcup.utils
 		// 控制状态
 		static private function keyDown(e:KeyboardEvent):void 
 		{
-			if (e.keyCode == Keyboard.SPACE) 
-			{
-				txt.visible = !txt.visible;
-			}
-			else if (e.keyCode == Keyboard.V) 
-			{
-				if (txt.mouseEnabled)
-				{
-					txt.alpha = 0.3;
-					txt.mouseEnabled = false;
-				}
-				else
-				{
-					txt.alpha = 0.7;
-					txt.mouseEnabled = true;
-				}
-			}
-			else if (e.keyCode == Keyboard.X) 
-			{
-				txt.text = "---------------- 调 试 信 息 ----------------\n";
-			}
+            if (!e.ctrlKey) return;
+            
+            switch (e.keyCode) 
+            {
+                case Keyboard.V:
+                    txt.visible = !txt.visible;
+                break;
+                case Keyboard.M:
+                    txt.mouseEnabled = !txt.mouseEnabled;
+                break;
+                case Keyboard.C:
+                    txt.text = "---------------- 调 试 信 息 ----------------\n";
+                break;
+            }
 		}
 		
 		
