@@ -51,7 +51,9 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <!-- example: <element path="..." /> -->
+    <element path="lib\greensock.swc" />
+    <element path="lib\as3corelib.swc" />
+    <element path="lib\airglobal.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

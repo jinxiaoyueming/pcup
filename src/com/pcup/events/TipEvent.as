@@ -1,4 +1,4 @@
-package com.pcup.project 
+package com.pcup.events 
 {
 	import flash.events.Event;
 	
@@ -10,6 +10,7 @@ package com.pcup.project
 	public class TipEvent extends Event 
 	{
 		static public const SHOW:String = "show";
+		static public const HIDE:String = "hide";
 		
 		/** 提示内容。*/
 		private var _content:String;

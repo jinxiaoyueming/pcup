@@ -605,10 +605,10 @@ private function onClick(e:MouseEvent):void
 		 * @playerversion	AIR 3.0
 		 * @playerversion	Flash 11
 		 */
-		/*override public function removeChildren(beginIndex:int = 0, endIndex:int = 2147483647):void {
+		override public function removeChildren(beginIndex:int = 0, endIndex:int = 2147483647):void {
 			_content.removeChildren(beginIndex, endIndex);
 			updateContent();
-		}*/
+		}
 		
 		
 		

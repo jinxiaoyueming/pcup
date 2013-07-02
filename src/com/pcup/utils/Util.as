@@ -1,6 +1,5 @@
 package com.pcup.utils 
 {
-	import com.adobe.serialization.json.JSON;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.IBitmapDrawable;
@@ -26,7 +25,7 @@ package com.pcup.utils
 			if (!object) return new Error("原始对象为空！");
 			
 			// [注意]因为只能遍历对象的动态属性，所以要先转换为JSON对象，再转为目标对象。（JSON对象的属性为动态属性）
-			var json:Object = com.adobe.serialization.json.JSON.decode(com.adobe.serialization.json.JSON.encode(object));
+			var json:Object = JSON.parse(JSON.stringify(object));
 			
 			// 目标对象
 			var userObject:Object = new UserObject();
@@ -60,7 +59,7 @@ package com.pcup.utils
 			if (!objectA || !objectB) return new Error("参数为空！");
 			
 			// [注意]因为只能遍历对象的动态属性，所以要先转换为JSON对象，再转为目标对象。（JSON对象的属性为动态属性）
-			var json:Object = com.adobe.serialization.json.JSON.decode(com.adobe.serialization.json.JSON.encode(objectB));
+			var json:Object = JSON.parse(JSON.stringify(objectB));
 			
 			try
 			{
@@ -94,6 +93,33 @@ package com.pcup.utils
 			return new Bitmap(bmd);
 		}
 		
+        
+        /**
+         * 从文件路径中获取文件名。
+         * <p>通过最后一个正斜杠(/)或者反斜杠(\)识别。</p>
+         * @param   url                 文件路径。
+         * @param   includeExtension    是否包后缀名。
+         * @return                      文件名。
+         */
+        static public function getNameFromUrl(url:String, includeExtension:Boolean = true):String
+        {
+            var index:int =         url.lastIndexOf("\/") + 1;
+            index = Math.max(index, url.lastIndexOf("\\") + 1);
+            
+            if (includeExtension)   return  url.substring(index                      );
+            else                    return  url.substring(index, url.lastIndexOf("."));
+        }
+        /**
+         * 从文件路径中获取文件后缀名。
+         * <p>通过最后一个点(.)识别。</p>
+         * @param   url     文件路径。
+         * @return          文件后缀名。
+         */
+        static public function getExtensionFromUrl(url:String):String
+        {
+            return  url.substring(url.lastIndexOf(".") + 1);
+        }
+        
 	}
 
 }

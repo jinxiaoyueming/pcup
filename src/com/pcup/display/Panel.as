@@ -1,6 +1,5 @@
-package com.pcup.project 
+package com.pcup.display 
 {
-	import com.greensock.easing.Linear;
 	import com.greensock.TweenLite;
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -9,11 +8,8 @@ package com.pcup.project
 	import flash.geom.Rectangle;
 	
 	
-	/** 需要提示时调度此事件 */
-	[Event(name = "show", type = "com.pcup.project.TipEvent")]
-	
 	/**
-	 * 视图面板父类
+	 * 视图面板父类(用于项目)
 	 * 
 	 * @author ph
 	 */
@@ -24,22 +20,6 @@ package com.pcup.project
 		/** 单击热区透明度	*/	static public var hotAreaAlpha:Number = 0;
 		
 		
-		/**
-		 * 监听一组对象的 TipEvent 事件，并由 this 把此事件转抛出去。
-		 * @param	list	需要转抛 TipEvent 事件的对象列表。
-		 */
-		protected function listTipEventDispatcher(list:Vector.<EventDispatcher>):void
-		{
-			for each (var item:EventDispatcher in list) 
-			{
-				item.addEventListener(TipEvent.SHOW, handleTipEvent);
-			}
-		}
-		private function handleTipEvent(e:TipEvent):void {
-			dispatchEvent(e);
-		}
-		
-		
 		
 		/** 重置。回到初始状态 */
 		public function reset():void
@@ -48,14 +28,12 @@ package com.pcup.project
 		/** 移入 */
 		public function moveIn():void
 		{
-			this.x = appView.width;
 			this.visible = true;
-			TweenLite.to(this, 0.3, { x:0, ease:Linear.easeNone } );
 		}
 		/** 移出 */
 		public function moveOut():void
 		{
-			TweenLite.to(this, 0.3, { x:-appView.width, onComplete:moveOutCompleteHandler, ease:Linear.easeNone } );
+			this.visible = false;
 		}
 		/** 移出完成后的操作 */
 		protected function moveOutCompleteHandler():void {

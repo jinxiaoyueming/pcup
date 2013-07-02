@@ -19,4 +19,45 @@
 	 
 	 </td></tr><tr><td class="idxrow" colspan="2"><a href="com/pcup/display/ValueBar.html#ValueBar()" onclick="javascript:loadClassListFrame('com/pcup/display/class-list.html');">ValueBar</a>(max:int, min:int, w:uint, h:uint, colorFront:uint, colorBg:uint) &mdash; Constructor, class com.pcup.display.<a href="com/pcup/display/ValueBar.html" onclick="javascript:loadClassListFrame('com/pcup/display/class-list.html');">ValueBar</a></td></tr><tr><td width="20"></td><td>
 		 创建一个新的 ValueBar 实例。
-		 </td></tr><tr><td class="idxrow" colspan="2"><a href="com/pcup/About.html#version" onclick="javascript:loadClassListFrame('com/pcup/class-list.html');">version</a> &mdash; Constant Static Property, class com.pcup.<a href="com/pcup/About.html" onclick="javascript:loadClassListFrame('com/pcup/class-list.html');">About</a></td></tr><tr><td width="20"></td><td> 版本号。 </td></tr><tr><td colspan="2" style="padding-bottom:20px"></td></tr><tr><td colspan="2"><a href="all-index-A.html" onclick="javascript:loadClassListFrame('index-list.html');">A</a>&nbsp;&nbsp;<a href="all-index-B.html" onclick="javascript:loadClassListFrame('index-list.html');">B</a>&nbsp;&nbsp;<a href="all-index-C.html" onclick="javascript:loadClassListFrame('index-list.html');">C</a>&nbsp;&nbsp;<a href="all-index-D.html" onclick="javascript:loadClassListFrame('index-list.html');">D</a>&nbsp;&nbsp;<a href="all-index-E.html" onclick="javascript:loadClassListFrame('index-list.html');">E</a>&nbsp;&nbsp;<a href="all-index-F.html" onclick="javascript:loadClassListFrame('index-list.html');">F</a>&nbsp;&nbsp;<a href="all-index-G.html" onclick="javascript:loadClassListFrame('index-list.html');">G</a>&nbsp;&nbsp;<a href="all-index-H.html" onclick="javascript:loadClassListFrame('index-list.html');">H</a>&nbsp;&nbsp;<a href="all-index-I.html" onclick="javascript:loadClassListFrame('index-list.html');">I</a>&nbsp;&nbsp;<a href="all-index-J.html" onclick="javascript:loadClassListFrame('index-list.html');">J</a>&nbsp;&nbsp;<a href="all-index-K.html" onclick="javascript:loadClassListFrame('index-list.html');">K</a>&nbsp;&nbsp;<a href="all-index-L.html" onclick="javascript:loadClassListFrame('index-list.html');">L</a>&nbsp;&nbsp;<a href="all-index-M.html" onclick="javascript:loadClassListFrame('index-list.html');">M</a>&nbsp;&nbsp;<a href="all-index-N.html" onclick="javascript:loadClassListFrame('index-list.html');">N</a>&nbsp;&nbsp;<a href="all-index-O.html" onclick="javascript:loadClassListFrame('index-list.html');">O</a>&nbsp;&nbsp;<a href="all-index-P.html" onclick="javascript:loadClassListFrame('index-list.html');">P</a>&nbsp;&nbsp;<a href="all-index-Q.html" onclick="javascript:loadClassListFrame('index-list.html');">Q</a>&nbsp;&nbsp;<a href="all-index-R.html" onclick="javascript:loadClassListFrame('index-list.html');">R</a>&nbsp;&nbsp;<a href="all-index-S.html" onclick="javascript:loadClassListFrame('index-list.html');">S</a>&nbsp;&nbsp;<a href="all-index-T.html" onclick="javascript:loadClassListFrame('index-list.html');">T</a>&nbsp;&nbsp;<a href="all-index-U.html" onclick="javascript:loadClassListFrame('index-list.html');">U</a>&nbsp;&nbsp;<font color="black" size="10px" style="bold">V</font>&nbsp;&nbsp;<a href="all-index-W.html" onclick="javascript:loadClassListFrame('index-list.html');">W</a>&nbsp;&nbsp;<a href="all-index-X.html" onclick="javascript:loadClassListFrame('index-list.html');">X</a>&nbsp;&nbsp;<a href="all-index-Y.html" onclick="javascript:loadClassListFrame('index-list.html');">Y</a>&nbsp;&nbsp;<a href="all-index-Z.html" onclick="javascript:loadClassListFrame('index-list.html');">Z</a>&nbsp;&nbsp;</td></tr></table><p></p><center class="copyright"><footer>kissyid@qq.com</footer><br/>Fri Jun 21 2013, 01:27 AM +08:00  </center></div></body></html><!--kissyid@qq.com<br/>Fri Jun 21 2013, 01:27 AM +08:00  -->
+		 </td></tr><tr><td class="idxrow" colspan="2"><a href="com/pcup/media/Vdo.html" onclick="javascript:loadClassListFrame('com/pcup/media/class-list.html');">Vdo</a> &mdash; class, package <a href="com/pcup/media/package-detail.html" onclick="javascript:loadClassListFrame('com/pcup/media/class-list.html');">com.pcup.media</a></td></tr><tr><td width="20"></td><td>
+     视频播放器
+     
+	 下面是一个简单的使用示例。
+
+var v:Vdo = new Vdo(600, 400);
+addChild(v);
+v.addEventListener(ErrorEvent.ERROR, trace);
+v.addEventListener(Vdo.META_DATA, onMeta);
+v.open("d:/video/Alizee-La isla bonita.flv");
+
+stage.addEventListener(KeyboardEvent.KEY_DOWN, onDown);
+
+private function onDown(e:KeyboardEvent):void 
+{
+    switch (e.keyCode) 
+    {
+        case Keyboard.SPACE:
+            v.togglePause();
+        break;
+        case Keyboard.LEFT:
+            v.seek(v.time - 5);
+        break;
+        case Keyboard.RIGHT:
+            v.seek(v.time + 5);
+        break;
+        case Keyboard.A:
+            v.seek(10);
+        break;
+        default:
+    }
+}
+private function onMeta(e:Event):void 
+{
+    trace("视频时长:" + v.duration);
+}
+
+     
+     
+     </td></tr><tr><td class="idxrow" colspan="2"><a href="com/pcup/media/Vdo.html#Vdo()" onclick="javascript:loadClassListFrame('com/pcup/media/class-list.html');">Vdo</a>(width:int, height:int) &mdash; Constructor, class com.pcup.media.<a href="com/pcup/media/Vdo.html" onclick="javascript:loadClassListFrame('com/pcup/media/class-list.html');">Vdo</a></td></tr><tr><td width="20"></td><td>
+         创建一个新的 Vdo 实例
+         </td></tr><tr><td class="idxrow" colspan="2"><a href="com/pcup/About.html#version" onclick="javascript:loadClassListFrame('com/pcup/class-list.html');">version</a> &mdash; Constant Static Property, class com.pcup.<a href="com/pcup/About.html" onclick="javascript:loadClassListFrame('com/pcup/class-list.html');">About</a></td></tr><tr><td width="20"></td><td> 版本号。 </td></tr><tr><td class="idxrow" colspan="2"><a href="com/pcup/media/Vdo.html#volume" onclick="javascript:loadClassListFrame('com/pcup/media/class-list.html');">volume</a> &mdash; Property, class com.pcup.media.<a href="com/pcup/media/Vdo.html" onclick="javascript:loadClassListFrame('com/pcup/media/class-list.html');">Vdo</a></td></tr><tr><td width="20"></td><td> 音量(音量值有效值:0~1) </td></tr><tr><td colspan="2" style="padding-bottom:20px"></td></tr><tr><td colspan="2"><a href="all-index-A.html" onclick="javascript:loadClassListFrame('index-list.html');">A</a>&nbsp;&nbsp;<a href="all-index-B.html" onclick="javascript:loadClassListFrame('index-list.html');">B</a>&nbsp;&nbsp;<a href="all-index-C.html" onclick="javascript:loadClassListFrame('index-list.html');">C</a>&nbsp;&nbsp;<a href="all-index-D.html" onclick="javascript:loadClassListFrame('index-list.html');">D</a>&nbsp;&nbsp;<a href="all-index-E.html" onclick="javascript:loadClassListFrame('index-list.html');">E</a>&nbsp;&nbsp;<a href="all-index-F.html" onclick="javascript:loadClassListFrame('index-list.html');">F</a>&nbsp;&nbsp;<a href="all-index-G.html" onclick="javascript:loadClassListFrame('index-list.html');">G</a>&nbsp;&nbsp;<a href="all-index-H.html" onclick="javascript:loadClassListFrame('index-list.html');">H</a>&nbsp;&nbsp;<a href="all-index-I.html" onclick="javascript:loadClassListFrame('index-list.html');">I</a>&nbsp;&nbsp;<a href="all-index-J.html" onclick="javascript:loadClassListFrame('index-list.html');">J</a>&nbsp;&nbsp;<a href="all-index-K.html" onclick="javascript:loadClassListFrame('index-list.html');">K</a>&nbsp;&nbsp;<a href="all-index-L.html" onclick="javascript:loadClassListFrame('index-list.html');">L</a>&nbsp;&nbsp;<a href="all-index-M.html" onclick="javascript:loadClassListFrame('index-list.html');">M</a>&nbsp;&nbsp;<a href="all-index-N.html" onclick="javascript:loadClassListFrame('index-list.html');">N</a>&nbsp;&nbsp;<a href="all-index-O.html" onclick="javascript:loadClassListFrame('index-list.html');">O</a>&nbsp;&nbsp;<a href="all-index-P.html" onclick="javascript:loadClassListFrame('index-list.html');">P</a>&nbsp;&nbsp;<a href="all-index-Q.html" onclick="javascript:loadClassListFrame('index-list.html');">Q</a>&nbsp;&nbsp;<a href="all-index-R.html" onclick="javascript:loadClassListFrame('index-list.html');">R</a>&nbsp;&nbsp;<a href="all-index-S.html" onclick="javascript:loadClassListFrame('index-list.html');">S</a>&nbsp;&nbsp;<a href="all-index-T.html" onclick="javascript:loadClassListFrame('index-list.html');">T</a>&nbsp;&nbsp;<a href="all-index-U.html" onclick="javascript:loadClassListFrame('index-list.html');">U</a>&nbsp;&nbsp;<font color="black" size="10px" style="bold">V</font>&nbsp;&nbsp;<a href="all-index-W.html" onclick="javascript:loadClassListFrame('index-list.html');">W</a>&nbsp;&nbsp;<a href="all-index-X.html" onclick="javascript:loadClassListFrame('index-list.html');">X</a>&nbsp;&nbsp;<a href="all-index-Y.html" onclick="javascript:loadClassListFrame('index-list.html');">Y</a>&nbsp;&nbsp;<a href="all-index-Z.html" onclick="javascript:loadClassListFrame('index-list.html');">Z</a>&nbsp;&nbsp;</td></tr></table><p></p><center class="copyright"><footer>kissyid@qq.com</footer><br/>Wed Jul 3 2013, 02:14 AM +08:00  </center></div></body></html><!--kissyid@qq.com<br/>Wed Jul 3 2013, 02:14 AM +08:00  -->

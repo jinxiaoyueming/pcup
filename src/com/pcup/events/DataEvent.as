@@ -1,4 +1,4 @@
-package com.pcup.project 
+package com.pcup.events 
 {
 	import flash.events.Event;
 	

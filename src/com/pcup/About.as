@@ -12,10 +12,15 @@ package com.pcup
 		/** 作者邮箱。 */
 		static public const email  :String = "kissyid@qq.com";
 		/** 版本号。 */
-		static public const version:String = "20130621011930";
+		static public const version:String = "20130703021027";
 		
 		/** 更新历史。 */
 		static public const history:String = <![CDATA[
+20130703021027
+    * +TCPCommunication类，封装TCP连接
+    * +Vdo类，封装本地视频播放
+    * 调整包结构
+    * 优化调整：Util、Slip、Panel、TipEvent等类
 20130621011930
     * Dbg类：优化快捷键。
 20130523160211
