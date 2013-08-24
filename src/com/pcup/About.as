@@ -12,18 +12,20 @@ package com.pcup
 		/** 作者邮箱。 */
 		static public const email  :String = "kissyid@qq.com";
 		/** 版本号。 */
-		static public const version:String = "20130824172906";
+		static public const version:String = "20130824181019";
 		
 		/** 更新历史。 */
 		static public const history:String = <![CDATA[
 20130824172906
-    * Twotouch 释放资源优化。
-    * 替换注释中的中括号为：&lsaquo;&rsaquo;
+    * 其它：注释中恢复使用中文尖括号。html码（&lsaquo;&rsaquo;）没用。
+20130824172906
+    * 修复：Twotouch 内存泄漏问题。
+    * 其它：替换注释中的尖括号为：&lsaquo;&rsaquo;
 20130703021027
-    * +TCPCommunication类，封装TCP连接
-    * +Vdo类，封装本地视频播放
-    * 调整包结构
-    * 优化调整：Util、Slip、Panel、TipEvent等类
+    * 增加：TCPCommunication类，封装TCP连接
+    * 增加：Vdo类，封装本地视频播放
+    * 优化：优化调整：Util、Slip、Panel、TipEvent等类
+    * 其它：调整包结构
 20130621011930
     * Dbg类：优化快捷键。
 20130523160211

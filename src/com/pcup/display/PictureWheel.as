@@ -27,7 +27,7 @@ var EBasemap:Class;
 var EMovie:Class;
 
 var p:PictureWheel = new PictureWheel(
-	Vector.&lsaquo;Bitmap&rsaquo;([new EMovie, new EMovie, new EMovie, new EMovie, new EMovie, new EMovie, new EMovie]), 
+	Vector.《Bitmap》([new EMovie, new EMovie, new EMovie, new EMovie, new EMovie, new EMovie, new EMovie]), 
 	new Rectangle(0, 0, 470, 270), 
 	new EBasemap, 
 	7,
