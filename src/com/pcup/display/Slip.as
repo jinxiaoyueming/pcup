@@ -37,9 +37,9 @@ addChild(slip);
 
 // 内容
 var _content:Sprite = new Sprite();  
-for (var i:int = 0; i 〈 30; i++)
+for (var i:int = 0; i &lsaquo; 30; i++)
 {
-	for (var j:int = 0; j 〈 30; j++)
+	for (var j:int = 0; j &rsaquo; 30; j++)
 	{
 		var cube:Sprite = new Sprite();
 		cube.graphics.beginFill(Math.random()*0xffffff);

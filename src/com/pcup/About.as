@@ -12,10 +12,13 @@ package com.pcup
 		/** 作者邮箱。 */
 		static public const email  :String = "kissyid@qq.com";
 		/** 版本号。 */
-		static public const version:String = "20130703021027";
+		static public const version:String = "20130824172906";
 		
 		/** 更新历史。 */
 		static public const history:String = <![CDATA[
+20130824172906
+    * Twotouch 释放资源优化。
+    * 替换注释中的中括号为：&lsaquo;&rsaquo;
 20130703021027
     * +TCPCommunication类，封装TCP连接
     * +Vdo类，封装本地视频播放

@@ -19,8 +19,8 @@ package com.pcup.display
 	
 	
 	/**
-	 * The instance of Twotouch that can be drag/zoom/rotate.
-	 * If an object should be drag/zoom/rotate, you can add it in Twotouch.
+     * 两点操作（缩放、旋转）。
+     * 直接把要操作的显示对象 addChild 到本类实例中即可。
 	 * 
 	 * @author ph
 	 */
@@ -93,12 +93,11 @@ package com.pcup.display
 		 */
 		public function Twotouch():void 
 		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
-		private function init(e:Event = null):void 
+		private function onAddedToStage(e:Event):void 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+            addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 			
 			// Touch mode
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
@@ -112,6 +111,18 @@ package com.pcup.display
 			stage.addEventListener(TouchEvent.TOUCH_MOVE, touchMoveHandler);
 			stage.addEventListener(TouchEvent.TOUCH_END, touchEndHandler);
 		}
+        private function onRemovedFromStage(e:Event):void 
+        {
+            removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+            
+            clickTimer.stop();
+            clickTimer = null;
+            removeEventListener(TouchEvent.TOUCH_TAP, touchTapHandler);
+            
+            removeEventListener(TouchEvent.TOUCH_BEGIN, touchBeginHandler);
+			stage.removeEventListener(TouchEvent.TOUCH_MOVE, touchMoveHandler);
+			stage.removeEventListener(TouchEvent.TOUCH_END, touchEndHandler);
+        }
 		
 		
 		// Judge double-click 
@@ -121,7 +132,7 @@ package com.pcup.display
 			{
 				if (Math.abs(e.stageX - clickPoint.x) < doubleDeviation && Math.abs(e.stageY - clickPoint.y) < doubleDeviation)
 				{
-					clickTimer.stop();
+					clickTimer.reset();
 					dispatchEvent(new Event(Twotouch.DOUBLE_CLICK));
 					//trace("[Twotouch]double-click....");
 				}
